@@ -30,12 +30,13 @@ const getOnePlayer = async(req,res)=>{
 
 const addPlayer = async(req,res)=>{
     try {
-    const {name , age ,price , team} = req.body ;
+    const {name , age ,price , team , points} = req.body ;
     const player = new Player({
         name ,
         age,
         price,
-        team
+        team,
+        points
     });
     await player.save();
     res.send("player added ");
@@ -60,7 +61,7 @@ const updatePlayer = async (req,res)=>{
         res.status(400).send(error.message);
     }
 }
-
+/* delete player */
 const deletePlayer = async(req,res)=>{
     try {
         /* validate id is mongo objectType */
@@ -74,6 +75,7 @@ const deletePlayer = async(req,res)=>{
         res.status(400).send(error.message);
     }
 }
+
 
 exports.getAllPlayers=getAllPlayers;
 exports.getOnePlayer=getOnePlayer;

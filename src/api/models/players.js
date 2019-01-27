@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema ;
 const model = mongoose.model;
 const ObjectId = Schema.Types.ObjectId ;
+const sumMethod = (num1,num2)=> num1 + num2 ;
 const playerSchema = new Schema({
     name : {
         type : String ,
@@ -36,11 +37,19 @@ const playerSchema = new Schema({
         default:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], // 20 round 
         required:true
     },
+    totaPoints :{
+        type : Number,
+    },
     image : {
         type : String,
         default:"/////pic/////"
     },
     team : {type:ObjectId , ref:'Team' , required : true} 
 },{timestamps:true});
+
+playerSchema.pre('save',async function(){
+    this.totaPoints = await this.points.reduce(sumMethod);
+})
+
 const Player = model('Player',playerSchema);
 exports.Player = Player ;
