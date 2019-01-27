@@ -1,0 +1,26 @@
+{
+  "name": "fantasy-league",
+  "version": "1.0.0",
+  "description": "pL-clone",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t0nxx/fantasy-league.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/t0nxx/fantasy-league/issues"
+  },
+  "homepage": "https://github.com/t0nxx/fantasy-league#readme",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "eslint": "^5.12.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.7"
+  }
+}
