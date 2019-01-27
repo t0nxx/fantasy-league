@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema ;
 const model = mongoose.model;
+const ObjectId = mongoose.Types.ObjectId ;
 const playerSchema = new Schema({
     name : {
         type : String ,
@@ -32,13 +33,14 @@ const playerSchema = new Schema({
     },
     points : {
         type : [Number],
-        default:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        default:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], // 20 round 
         required:true
     },
     image : {
         type : String,
         default:"/////pic/////"
-    }
+    },
+    team : {type:ObjectId , ref:'Team' , required : true} 
 },{timestamps:true});
 const Player = model('Player',playerSchema);
 exports.Player = Player ;
