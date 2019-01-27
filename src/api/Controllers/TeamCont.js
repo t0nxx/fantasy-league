@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
-const {Team}= require('../models/Teams');
+const {Team}= require('../models/team');
 
 /* get all Teams handler */ 
 const getAllTeams = async (req,res)=>{
@@ -15,7 +15,7 @@ const getAllTeams = async (req,res)=>{
 /* get one Team handler */
 const getOneTeam = async(req,res)=>{
     try {
-      const result = await Team.findById(req.params.id);
+      const result = await Team.findById(req.params.id).populate('players','name');
       if(!result) throw new Error("no Team was found");
       res.status(200).send(result); 
     } catch (error) {
@@ -28,13 +28,13 @@ const getOneTeam = async(req,res)=>{
 const addTeam = async(req,res)=>{
     try {
     const {name , nickname , image , players } = req.body ;
-    const Team = new Team({
+    const team = new Team({
         name ,
         nickname,
         image,
         players
     });
-    await Team.save();
+    await team.save();
     res.send("Team added ");
     } catch (error) {
         res.status(400).send(error.message);

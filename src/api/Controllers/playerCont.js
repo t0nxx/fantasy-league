@@ -15,7 +15,7 @@ const getAllPlayers = async (req,res)=>{
 /* get one player handler */
 const getOnePlayer = async(req,res)=>{
     try {
-      const result = await Player.findById(req.params.id);
+      const result = await Player.findById(req.params.id).populate('team','name');
       if(!result) throw new Error("no player was found");
       res.status(200).send(result); 
     } catch (error) {
@@ -27,11 +27,12 @@ const getOnePlayer = async(req,res)=>{
 
 const addPlayer = async(req,res)=>{
     try {
-    const {name , age ,price } = req.body ;
+    const {name , age ,price , team} = req.body ;
     const player = new Player({
         name ,
         age,
-        price
+        price,
+        team
     });
     await player.save();
     res.send("player added ");
