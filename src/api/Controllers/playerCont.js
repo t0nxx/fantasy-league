@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const ObjectId = mongoose.Types.ObjectId;
 const {Player}= require('../models/players');
+const {validIdObject} = require('../helpers/validateObjectId');
 
 /* get all players handler */ 
 const getAllPlayers = async (req,res)=>{
@@ -15,6 +15,9 @@ const getAllPlayers = async (req,res)=>{
 /* get one player handler */
 const getOnePlayer = async(req,res)=>{
     try {
+        /* validate id is mongo objectType */
+        validIdObject(req.params.id);
+
       const result = await Player.findById(req.params.id).populate('team','name');
       if(!result) throw new Error("no player was found");
       res.status(200).send(result); 
@@ -44,6 +47,9 @@ const addPlayer = async(req,res)=>{
 /* update player */ 
 const updatePlayer = async (req,res)=>{
     try {
+        /* validate id is mongo objectType */
+        validIdObject(req.params.id);
+
         const updatedData = req.body ;
         if(Object.keys(updatedData).length < 1 )throw new Error ("no data to update");
         const result = await Player.findById(req.params.id);
@@ -57,6 +63,9 @@ const updatePlayer = async (req,res)=>{
 
 const deletePlayer = async(req,res)=>{
     try {
+        /* validate id is mongo objectType */
+        validIdObject(req.params.id);
+
         const result = await Player.findById(req.params.id);
         if(!result) throw new Error("no player was found");
         await Player.findByIdAndRemove(req.params.id);
