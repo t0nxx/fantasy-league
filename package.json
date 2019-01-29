@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/t0nxx/fantasy-league#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dev": "^0.1.3",
     "dotenv": "^6.2.0",
     "eslint": "^5.12.1",
@@ -29,7 +31,7 @@
     "jest": "^24.0.0",
     "supertest": "^3.4.2"
   },
-  "jest" : {
+  "jest": {
     "testEnvironment": "node"
   }
 }

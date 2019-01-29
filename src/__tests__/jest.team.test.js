@@ -5,7 +5,7 @@ require('dotenv').config();
 
 beforeAll(async()=>{
     mongoose.connect('mongodb://localhost:27017/fantasypl', {useNewUrlParser: true})
-    serv = app.listen(5000); 
+    serv = app.listen(7000); 
     server = request.agent(serv); 
 })
 describe('GET All /teams',()=>{
