@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const {User}= require('../models/user');
 const {validIdObject}=require('../helpers/validateObjectId');
+const bcrypt = require('bcryptjs');
 
 /* get all Users handler */ 
 const getAllUsers = async (req,res)=>{
@@ -54,6 +55,14 @@ const updateUser = async (req,res)=>{
         if(Object.keys(updatedData).length < 1 )throw new Error ("no data to update");
         const result = await User.findById(req.params.id);
         if(!result) throw new Error("no User was found");
+        /* check if new pass cause mongoose pre update is fkin sh*t */
+        if (updatedData.password) {
+            if(updatedData.password.length < 6){
+                throw new Error ("password length not less than 6");
+            }
+           updatedData.password = await bcrypt.hashSync(updatedData.password,10);
+        }
+        ////////
         await User.findByIdAndUpdate({_id:req.params.id},updatedData);
         res.status(200).send("User update done");
     } catch (error) {
