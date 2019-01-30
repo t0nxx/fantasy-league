@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const {getAllPlayers,getOnePlayer,addPlayer,updatePlayer,deletePlayer} = require('../Controllers/playerCont');
+const {AdminAuth}= require('../middlewares/adminAuth');
+const {SuperAuth}= require('../middlewares/superAuth');
 
 
 /*
 * get all players 
 */
-router.get('/',getAllPlayers);
+router.get('/',[AdminAuth,SuperAuth],getAllPlayers);
 
 /*
 * get player
